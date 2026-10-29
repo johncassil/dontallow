@@ -21,7 +21,7 @@ There is no supported way to prune the list, no MDM payload to pre-deny the perm
 ## Install
 
 ```sh
-brew install pkgwarden/tap/dontallow   # or: make && make install
+brew install johncassil/tap/dontallow   # or: make && make install
 dontallow install
 ```
 
