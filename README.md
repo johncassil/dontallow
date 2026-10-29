@@ -25,7 +25,7 @@ brew install johncassil/tap/dontallow   # or: make && make install
 dontallow install
 ```
 
-`dontallow install` writes a per-user launchd agent and starts it. macOS will ask you to grant the binary **Accessibility** access (System Settings > Privacy & Security > Accessibility). That permission is what lets it press the button. The agent attaches on its own within ten seconds of the grant.
+`dontallow install` writes a per-user launchd agent, starts it, opens System Settings > Privacy & Security > Accessibility, and prints the exact path to add if macOS doesn't prompt you. Accessibility is the permission that lets it press the button. It waits for the grant and confirms when the agent is active. `dontallow status` repeats the instructions any time the grant is missing.
 
 ## Use
 
@@ -60,11 +60,25 @@ It never modifies system files, never disables protections, and never chooses Al
 
 Local Network cannot be pre-set by MDM, but Accessibility can. For a fleet: build once, sign with a Developer ID, ship the binary plus a PPPC (Privacy Preferences Policy Control) profile granting Accessibility to its code requirement, and run `dontallow install` per user. No manual Settings step.
 
-## Notes
+## After upgrading
 
-- Accessibility grants are keyed to the binary's code signature. If you rebuild, remove the `dontallow` row in Accessibility settings and add it again. Homebrew users build once and don't hit this.
-- Builds with Apple's Command Line Tools alone; Xcode is not required.
-- macOS 13 or later.
+macOS keys the Accessibility grant to the binary's code signature, and every build (including `brew upgrade`) produces a new one. After an upgrade run `dontallow status`. If it says the grant is missing, remove the `dontallow` row in Accessibility settings and add it back from the path it prints. The agent re-attaches on its own within ten seconds. A future release signed with a Developer ID will remove this step.
+
+## Tests
+
+```sh
+make test
+```
+
+Unit tests cover the pure logic (dialog text parsing, duration and pause parsing, allowlist matching, launchd plist generation, and the Local Network rule decoder against a fixture archive). They build with plain `swiftc` and need no Xcode or SwiftPM. The end-to-end path (a real prompt, a real press) can only be checked on a Mac with Accessibility granted; the manual recipe is in `Tests/INTEGRATION.md`.
+
+## Compatibility
+
+- Builds with Apple's Command Line Tools alone. Xcode is not required.
+- Apple Silicon and Intel: Homebrew compiles natively on each.
+- macOS 13 or later to build; the prompt itself only exists on macOS 15 Sequoia and later.
+- Tested so far: Intel, macOS 26.6. Reports from other versions welcome.
+- English-localized macOS only for now. The matcher keys on the dialog text and the "Don't Allow" button title; localized strings are planned.
 
 ## License
 
