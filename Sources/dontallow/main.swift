@@ -163,7 +163,7 @@ func evaluate(_ win: AXUIElement, attempt: Int = 0) {
         clickCenter(of: deny)
     }
     log("dismissed Local Network prompt for \(app)")
-    notify("Dismissed Local Network prompt for \(app). To let apps ask: dontallow pause")
+    notify("Dismissed Local Network prompt for \(app). To let apps ask, run: dontallow pause 10m")
 }
 
 func scheduleEvaluate(_ win: AXUIElement) {
