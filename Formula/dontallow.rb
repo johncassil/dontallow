@@ -2,7 +2,7 @@ class Dontallow < Formula
   desc "Auto-dismiss the macOS 'Allow X to find devices on local networks?' prompt"
   homepage "https://github.com/johncassil/dontallow"
   url "https://github.com/johncassil/dontallow/archive/refs/tags/v0.1.1.tar.gz"
-  sha256 "8943d26428dc0795daa31ce18cd99cbfcbba6d4db2ef928a5b9e7753199a75b2"
+  sha256 "a6efb067267f1008e95b6e453be33e1befa01f864e8fd1e958e04cc200c6bee8"
   head "https://github.com/johncassil/dontallow.git", branch: "main"
   license "MIT"
   depends_on macos: :ventura
