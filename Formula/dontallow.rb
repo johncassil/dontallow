@@ -1,9 +1,8 @@
 class Dontallow < Formula
   desc "Auto-dismiss the macOS 'Allow X to find devices on local networks?' prompt"
   homepage "https://github.com/johncassil/dontallow"
-  # Fill in url + sha256 from a tagged release tarball; `head` works today.
-  # url "https://github.com/johncassil/dontallow/archive/refs/tags/v0.1.0.tar.gz"
-  # sha256 "..."
+  url "https://github.com/johncassil/dontallow/archive/refs/tags/v0.1.0.tar.gz"
+  sha256 "38dda44ded73b0f148777fd7a5a7003dbf8d80732809609d1b1b5500532f5e8f"
   head "https://github.com/johncassil/dontallow.git", branch: "main"
   license "MIT"
   depends_on :macos
