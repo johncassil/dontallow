@@ -5,7 +5,7 @@ Auto-dismisses the macOS prompt:
 > **Allow "Google Chrome" to find devices on local networks?**
 > This will allow the app to discover, connect to, and collect data from devices on your networks.
 
-It presses **Don't Allow** for you, within a fraction of a second, every time. Zero CPU while idle. Survives reboots. One Swift file, no dependencies.
+It presses **Don't Allow** for you, within a fraction of a second, every time. Zero CPU while idle. Survives reboots. Two short Swift files, no dependencies.
 
 ## Why this exists
 
@@ -14,7 +14,7 @@ macOS (Sequoia and later) shows this prompt the first time an app touches the lo
 - **Chromium browsers** (Chrome, Brave, Edge, Island, Arc) copy their own app bundle into a random temp folder at launch so the code signature survives in-place updates. macOS keys the Local Network decision to that random path, so the next launch looks like a brand-new app. Your Privacy settings fill up with duplicate "Google Chrome.app" rows that no longer point at anything.
 - **Apps with versioned install paths** (anything that installs into `.../versions/1.2.3/`) get a new row per update.
 - **Misattributed prompts.** macOS pins the dialog on whichever app it decides is "responsible", so you'll see prompts for apps that aren't running.
-- Nothing on a typical Mac needs this permission except a printer or scanner utility, a media server, or a LAN-discovery tool, and those you answer once and they're done.
+- Some apps do legitimately use this permission: Chromecast and AirPlay discovery in browsers and media players, LAN multiplayer in games, printer and scanner utilities. If you use one of those features, answer Allow for that app (`dontallow pause 10m` while you do), and it's remembered as long as the app's path is stable. If you never use them, you never need to be asked.
 
 There is no supported way to prune the list, no MDM payload to pre-deny the permission, and `tccutil reset` doesn't cover it. So: a small agent that answers "no" for you.
 
