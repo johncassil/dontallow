@@ -6,7 +6,6 @@ class Dontallow < Formula
   head "https://github.com/johncassil/dontallow.git", branch: "main"
   license "MIT"
   depends_on :macos
-  depends_on xcode: ["14.0", :build]
 
   def install
     system "make", "dontallow"
